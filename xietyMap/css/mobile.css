@@ -1,0 +1,17 @@
+@media(max-width:700px){
+
+
+
+#livePanel{
+width:110px;
+}
+
+#logo{
+font-size:22px;
+}
+
+.statNumber{
+font-size:20px;
+}
+
+}

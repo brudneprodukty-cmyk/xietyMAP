@@ -1,0 +1,2 @@
+let allMarkers = [];
+let heatData = [];

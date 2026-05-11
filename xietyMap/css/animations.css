@@ -1,0 +1,18 @@
+@keyframes pulseGlow{
+0%{
+box-shadow:0 0 10px rgba(0,255,213,0.3);
+}
+50%{
+box-shadow:0 0 25px rgba(0,255,213,0.8);
+}
+100%{
+box-shadow:0 0 10px rgba(0,255,213,0.3);
+}
+}
+
+#socialBatteryCard,
+#livePanel,
+#topBar,
+#bottomNav{
+animation:pulseGlow 4s infinite;
+}

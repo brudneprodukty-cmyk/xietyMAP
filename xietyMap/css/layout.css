@@ -1,0 +1,259 @@
+/* TOP BAR */
+
+#topBar{
+position:absolute;
+
+top:18px;
+left:50%;
+
+transform:translateX(-50%);
+
+width:94%;
+height:64px;
+
+background:
+rgba(20,20,20,0.72);
+
+backdrop-filter:
+blur(24px);
+
+border:
+1px solid rgba(255,255,255,0.06);
+
+border-radius:22px;
+
+z-index:99999;
+
+display:flex;
+align-items:center;
+gap:14px;
+
+padding:0 18px;
+
+box-shadow:
+0 10px 40px rgba(0,0,0,0.35);
+}
+
+/* LOGO */
+
+#logo{
+font-size:26px;
+font-weight:800;
+letter-spacing:-1px;
+
+background:linear-gradient(
+90deg,
+#9be7ff,
+#d6f7ff
+);
+
+-webkit-background-clip:text;
+-webkit-text-fill-color:transparent;
+}
+
+/* SEARCH */
+
+#searchWrapper{
+flex:1;
+position:relative;
+display:flex;
+align-items:center;
+}
+
+#searchIcon{
+position:absolute;
+left:16px;
+
+font-size:14px;
+
+opacity:0.7;
+
+pointer-events:none;
+}
+
+#searchInput{
+flex:1;
+height:46px;
+
+background:
+rgba(255,255,255,0.06);
+
+border:
+1px solid rgba(255,255,255,0.05);
+
+outline:none;
+
+border-radius:16px;
+
+padding-left:42px;
+padding-right:20px;
+
+font-size:14px;
+font-weight:500;
+
+color:white;
+
+transition:0.3s;
+}
+
+#searchInput::placeholder{
+color:#bcbcbc;
+}
+
+#searchInput:focus{
+
+background:
+rgba(255,255,255,0.09);
+
+border:
+1px solid rgba(0,255,213,0.18);
+
+box-shadow:
+0 0 20px rgba(0,255,213,0.08);
+
+}
+
+/* LIVE PANEL */
+
+#livePanel{
+position:absolute;
+
+right:18px;
+top:94px;
+
+width:130px;
+
+background:
+rgba(15,15,15,0.72);
+
+backdrop-filter:
+blur(20px);
+
+border-radius:22px;
+
+padding:16px;
+
+z-index:99999;
+
+color:white;
+
+box-shadow:
+0 0 30px rgba(0,255,213,0.04);
+}
+
+.liveStat{
+margin-bottom:18px;
+}
+
+.liveStat:last-child{
+margin-bottom:0;
+}
+
+.statNumber{
+font-size:28px;
+font-weight:800;
+}
+
+.statLabel{
+font-size:13px;
+color:#999;
+}
+
+/* BOTTOM NAV */
+
+#bottomNav{
+position:absolute;
+
+bottom:24px;
+left:50%;
+
+transform:translateX(-50%);
+
+z-index:99999;
+
+display:flex;
+justify-content:center;
+align-items:center;
+
+gap:85px;
+}
+
+/* NAV BUTTONS */
+
+.navBtn{
+background:none;
+border:none;
+
+display:flex;
+flex-direction:column;
+align-items:center;
+justify-content:center;
+
+gap:8px;
+
+color:#9d9d9d;
+
+cursor:pointer;
+
+transition:0.3s;
+
+padding:14px 18px;
+
+border-radius:22px;
+}
+
+/* ICON */
+
+.navIcon{
+font-size:26px;
+}
+
+/* TEXT */
+
+.navBtn span{
+font-size:13px;
+font-weight:700;
+letter-spacing:0.2px;
+}
+
+/* ACTIVE */
+
+.navBtn.active{
+color:#00ffd5;
+}
+
+/* HOVER */
+
+.navBtn:hover{
+transform:translateY(-3px) scale(1.05);
+color:white;
+
+background:
+rgba(255,255,255,0.05);
+}
+
+/* FLOATING GLOW */
+
+@keyframes floatGlow{
+
+0%{
+box-shadow:
+0 0 15px rgba(0,255,213,0.03);
+}
+
+50%{
+box-shadow:
+0 0 25px rgba(0,255,213,0.08);
+}
+
+100%{
+box-shadow:
+0 0 15px rgba(0,255,213,0.03);
+}
+
+}
+
+#topBar,
+#livePanel{
+animation:floatGlow 4s infinite;
+}

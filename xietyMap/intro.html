@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>xietyMap</title>
+
+<link
+href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+rel="stylesheet"
+/>
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+}
+
+body{
+font-family:Inter,sans-serif;
+background:black;
+overflow:hidden;
+color:white;
+}
+
+/* VIDEO BACKGROUND */
+
+#videoBackground{
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+overflow:hidden;
+}
+
+/* VIDEOS */
+
+.bgVideo{
+position:absolute;
+
+top:0;
+left:0;
+
+width:100%;
+height:100%;
+
+object-fit:cover;
+
+opacity:0;
+
+transition:opacity 2s ease;
+
+filter:
+brightness(0.35);
+
+transform:scale(1.05);
+}
+
+/* ACTIVE */
+
+.bgVideo.active{
+opacity:1;
+}
+
+/* OVERLAY */
+
+#overlay{
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+
+background:
+linear-gradient(
+180deg,
+rgba(0,0,0,0.15),
+rgba(0,0,0,0.78)
+);
+
+z-index:2;
+}
+
+/* MAIN */
+
+#main{
+position:relative;
+z-index:5;
+
+width:100%;
+height:100vh;
+
+display:flex;
+flex-direction:column;
+justify-content:center;
+align-items:center;
+
+padding:30px;
+}
+
+/* LOGO */
+
+#logo{
+font-size:72px;
+font-weight:800;
+
+letter-spacing:-3px;
+
+margin-bottom:12px;
+
+background:linear-gradient(
+90deg,
+#ffffff,
+#b8eeff
+);
+
+-webkit-background-clip:text;
+-webkit-text-fill-color:transparent;
+}
+
+/* SUBTITLE */
+
+#subtitle{
+font-size:17px;
+font-weight:500;
+
+color:#d7d7d7;
+
+text-align:center;
+
+max-width:460px;
+
+line-height:1.6;
+
+margin-bottom:34px;
+}
+
+/* MINI MOODS */
+
+#moods{
+display:flex;
+gap:12px;
+
+flex-wrap:wrap;
+justify-content:center;
+
+margin-bottom:42px;
+}
+
+/* MOOD */
+
+.mood{
+padding:12px 18px;
+
+border-radius:18px;
+
+background:
+rgba(255,255,255,0.06);
+
+border:
+1px solid rgba(255,255,255,0.08);
+
+backdrop-filter:
+blur(14px);
+
+font-size:14px;
+font-weight:600;
+
+cursor:pointer;
+
+transition:0.3s;
+}
+
+.mood:hover{
+transform:translateY(-2px);
+
+background:
+rgba(255,255,255,0.1);
+}
+
+/* SELECTED */
+
+.selected{
+background:
+rgba(0,255,213,0.12);
+
+border:
+1px solid rgba(0,255,213,0.28);
+
+color:#00ffd5;
+}
+
+/* BUTTON */
+
+#enterBtn{
+height:64px;
+
+padding:0 44px;
+
+border:none;
+
+border-radius:999px;
+
+cursor:pointer;
+
+font-size:16px;
+font-weight:700;
+
+color:white;
+
+background:
+rgba(255,255,255,0.08);
+
+border:
+1px solid rgba(255,255,255,0.12);
+
+backdrop-filter:
+blur(20px);
+
+transition:0.35s;
+
+box-shadow:
+0 8px 30px rgba(0,0,0,0.35);
+}
+
+/* BUTTON HOVER */
+
+#enterBtn:hover{
+
+transform:
+translateY(-3px)
+scale(1.03);
+
+background:
+rgba(255,255,255,0.14);
+
+}
+
+/* SMALL TEXT */
+
+#smallText{
+position:absolute;
+
+bottom:34px;
+
+font-size:13px;
+
+color:rgba(255,255,255,0.45);
+
+letter-spacing:0.5px;
+}
+
+/* MOBILE */
+
+@media(max-width:700px){
+
+#logo{
+font-size:54px;
+}
+
+#subtitle{
+font-size:15px;
+max-width:330px;
+}
+
+#moods{
+gap:10px;
+}
+
+.mood{
+font-size:13px;
+padding:10px 14px;
+}
+
+#enterBtn{
+height:58px;
+padding:0 34px;
+font-size:15px;
+}
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<!-- VIDEO BACKGROUND -->
+
+<div id="videoBackground">
+
+<!-- CLUB -->
+
+<video
+class="bgVideo active"
+autoplay
+muted
+loop
+playsinline
+>
+
+<source
+src="videos/club.mp4"
+type="video/mp4"
+>
+
+</video>
+
+<!-- FOOD -->
+
+<video
+class="bgVideo"
+autoplay
+muted
+loop
+playsinline
+>
+
+<source
+src="videos/food.mp4"
+type="video/mp4"
+>
+
+</video>
+
+<!-- CAFE -->
+
+<video
+class="bgVideo"
+autoplay
+muted
+loop
+playsinline
+>
+
+<source
+src="videos/cafe.mp4"
+type="video/mp4"
+>
+
+</video>
+
+</div>
+
+<!-- OVERLAY -->
+
+<div id="overlay"></div>
+
+<!-- MAIN -->
+
+<div id="main">
+
+<div id="logo">
+xietyMap
+</div>
+
+<div id="subtitle">
+Find the perfect vibe around you.
+Nightlife, cafés, food and hidden spots.
+</div>
+
+<!-- MOODS -->
+
+<div id="moods">
+
+<div
+class="mood"
+onclick="selectMood(this,'quiet')"
+>
+😌 Quiet
+</div>
+
+<div
+class="mood"
+onclick="selectMood(this,'study')"
+>
+📚 Study
+</div>
+
+<div
+class="mood"
+onclick="selectMood(this,'social')"
+>
+🍸 Social
+</div>
+
+<div
+class="mood"
+onclick="selectMood(this,'nightlife')"
+>
+🌙 Nightlife
+</div>
+
+<div
+class="mood"
+onclick="selectMood(this,'food')"
+>
+🍔 Food
+</div>
+
+</div>
+
+<!-- BUTTON -->
+
+<button
+id="enterBtn"
+onclick="enterMap()"
+>
+Enter the Map
+</button>
+
+<div id="smallText">
+Live vibes • Real places • Real moods
+</div>
+
+</div>
+
+<script>
+
+/* SELECT */
+
+function selectMood(element,mood){
+
+document
+.querySelectorAll('.mood')
+.forEach(m=>{
+
+m.classList.remove('selected');
+
+});
+
+element.classList.add('selected');
+
+localStorage.setItem(
+'selectedMood',
+mood
+);
+
+}
+
+/* ENTER */
+
+function enterMap(){
+
+window.location.href =
+'index.html';
+
+}
+
+/* VIDEO ROTATION */
+
+const videos =
+document.querySelectorAll('.bgVideo');
+
+let currentVideo = 0;
+
+setInterval(()=>{
+
+videos[currentVideo]
+.classList.remove('active');
+
+currentVideo++;
+
+if(currentVideo >= videos.length){
+
+currentVideo = 0;
+
+}
+
+videos[currentVideo]
+.classList.add('active');
+
+},10000);
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Favorites</title>
+
+<link
+href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+rel="stylesheet"
+/>
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+}
+
+body{
+background:#050505;
+font-family:Inter,sans-serif;
+color:white;
+padding:20px;
+}
+
+#topBar{
+display:flex;
+justify-content:space-between;
+align-items:center;
+margin-bottom:30px;
+}
+
+#logo{
+font-size:32px;
+font-weight:800;
+
+background:linear-gradient(
+90deg,
+#00ffd5,
+#00a2ff
+);
+
+-webkit-background-clip:text;
+-webkit-text-fill-color:transparent;
+}
+
+#backBtn{
+height:44px;
+padding:0 18px;
+
+border:none;
+
+border-radius:14px;
+
+background:#111;
+
+color:white;
+
+cursor:pointer;
+}
+
+#favoritesGrid{
+display:grid;
+
+grid-template-columns:
+repeat(auto-fit,minmax(280px,1fr));
+
+gap:20px;
+}
+
+.favoriteCard{
+background:#111;
+
+border-radius:22px;
+
+overflow:hidden;
+
+box-shadow:
+0 0 25px rgba(0,255,213,0.08);
+}
+
+.favoriteImage{
+width:100%;
+height:180px;
+object-fit:cover;
+}
+
+.favoriteContent{
+padding:16px;
+}
+
+.favoriteTitle{
+font-size:22px;
+font-weight:700;
+margin-bottom:10px;
+}
+
+.favoriteInfo{
+font-size:14px;
+color:#aaa;
+margin-bottom:8px;
+}
+
+.removeBtn{
+margin-top:12px;
+
+width:100%;
+height:44px;
+
+border:none;
+
+border-radius:14px;
+
+background:#ff3d71;
+
+color:white;
+
+font-weight:700;
+
+cursor:pointer;
+}
+
+.emptyState{
+text-align:center;
+margin-top:100px;
+color:#777;
+font-size:20px;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div id="topBar">
+
+<div id="logo">
+Favorites
+</div>
+
+<button
+id="backBtn"
+onclick="window.location.href='index.html'"
+>
+← Back
+</button>
+
+</div>
+
+<div id="favoritesGrid"></div>
+
+<script>
+
+function getFavorites(){
+
+return JSON.parse(
+localStorage.getItem('favorites') || '[]'
+);
+
+}
+
+function saveFavorites(data){
+
+localStorage.setItem(
+'favorites',
+JSON.stringify(data)
+);
+
+}
+
+const favorites = getFavorites();
+
+const grid =
+document.getElementById(
+'favoritesGrid'
+);
+
+if(favorites.length === 0){
+
+grid.innerHTML = `
+<div class="emptyState">
+No saved places yet 🖤
+</div>
+`;
+
+}else{
+
+favorites.forEach(place=>{
+
+const card =
+document.createElement('div');
+
+card.className = 'favoriteCard';
+
+card.innerHTML = `
+
+<img
+src="${place.photo}"
+class="favoriteImage"
+>
+
+<div class="favoriteContent">
+
+<div class="favoriteTitle">
+${place.name}
+</div>
+
+<div class="favoriteInfo">
+📍 ${place.type}
+</div>
+
+<div class="favoriteInfo">
+👥 Crowd: ${place.crowd}%
+</div>
+
+<div class="favoriteInfo">
+🔊 Noise: ${place.noise}%
+</div>
+
+<button
+class="removeBtn"
+onclick="removeFavorite('${place.name}')"
+>
+Remove Favorite
+</button>
+
+</div>
+
+`;
+
+grid.appendChild(card);
+
+});
+
+}
+
+function removeFavorite(name){
+
+let favorites = getFavorites();
+
+favorites = favorites.filter(
+p=>p.name !== name
+);
+
+saveFavorites(favorites);
+
+location.reload();
+
+}
+
+</script>
+
+</body>
+</html>
